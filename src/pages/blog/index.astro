@@ -42,7 +42,7 @@ function getYearMonth(dateString: string): string {
             <div class="space-y-6">
               {sortedPosts.slice(0, 1).map((post) => (
                 <article>
-                  <a href={`/blog_alpha/blog/${post.id}`} class="group">
+                  <a href={`/blog_alpha/blog/${post.slug}`} class="group">
                     <h3 class="text-lg font-semibold group-hover:underline mb-2 dark:text-zinc-200">
                       {post.data.title}
                     </h3>
@@ -78,7 +78,7 @@ function getYearMonth(dateString: string): string {
                 {sortedPosts.map((post) => (
                   <div class="flex gap-4">
                     <span class="text-sm text-slate-600 dark:text-zinc-500 w-24 flex-shrink-0">{getYearMonth(post.data.date)}</span>
-                    <a href={`/blog_alpha/blog/${post.id}`} class="text-sm hover:underline dark:text-zinc-400 dark:hover:text-zinc-200">
+                    <a href={`/blog_alpha/blog/${post.slug}`} class="text-sm hover:underline dark:text-zinc-400 dark:hover:text-zinc-200">
                       {post.data.title}
                     </a>
                   </div>
