@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
+  section?: string;
 }
 
-const { title = 'MyBlog' } = Astro.props;
+const { title = 'MyBlog', section } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@ const { title = 'MyBlog' } = Astro.props;
   </head>
   <body class="bg-amber-50 text-slate-900 dark:bg-zinc-900 dark:text-zinc-300">
     <div class="min-h-screen flex flex-col">
-      <Header />
+      <Header section={section} />
       
       <main class="flex-grow">
         <slot />
