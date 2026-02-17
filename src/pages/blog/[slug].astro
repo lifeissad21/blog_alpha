@@ -1,0 +1,35 @@
+---
+import '../../styles/global.css';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = import.meta.glob('../../content/blog/*.mdx', { eager: true });
+  
+  return Object.entries(posts).map(([path, post]) => {
+    const slug = path.split('/').pop()?.replace('.mdx', '') || '';
+    return {
+      params: { slug },
+      props: { post }
+    };
+  });
+}
+
+interface Props {
+  post: {
+    frontmatter: {
+      title: string;
+      tags: string[];
+      date: string;
+      excerpt?: string;
+    };
+    default: any;
+  };
+}
+
+const { post } = Astro.props;
+const Content = post.default;
+---
+
+<BlogLayout frontmatter={post.frontmatter}>
+  <Content />
+</BlogLayout>

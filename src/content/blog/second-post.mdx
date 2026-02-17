@@ -1,0 +1,70 @@
+---
+title: "Building with Astro: A Modern Web Framework"
+tags: ["web", "astro", "development", "technology", "interview"]
+date: "2026-02-10"
+excerpt: "Exploring Astro and why it's becoming my go-to framework for content-focused websites."
+---
+
+Over the past few months, I've been diving deep into Astro, and I have to say - it's been a game changer for building content-focused websites. If you haven't heard of it yet, Astro is a modern web framework that prioritizes performance by shipping zero JavaScript by default.
+
+## Why Astro?
+
+The web has become increasingly bloated over the years. Single Page Applications (SPAs) became the norm, but they often come with a hefty performance cost. Astro takes a different approach: it's built for content-first websites and renders everything to static HTML at build time.
+
+### Key Features I Love
+
+1. **Islands Architecture** - You can use any framework (React, Vue, Svelte) but only hydrate the interactive parts
+2. **Zero JS by Default** - Unless you explicitly need it, no JavaScript is shipped to the browser
+3. **Content Collections** - Built-in support for managing blog posts, documentation, and other content
+
+## Performance Benefits
+
+The performance gains are immediately noticeable. By default, Astro sites load incredibly fast because:
+
+- No unnecessary JavaScript is sent to the browser
+- CSS is optimized and inlined where beneficial  
+- Images are automatically optimized
+- HTML is pre-rendered at build time
+
+## Developer Experience
+
+What sets Astro apart isn't just performance - it's the developer experience. Writing `.astro` components feels natural if you're familiar with JSX, but it's even simpler. You can also use components from your favorite framework alongside Astro components.
+
+```astro
+---
+import MyReactComponent from './MyReactComponent.jsx';
+---
+
+<div>
+  <h1>Mix and match!</h1>
+  <MyReactComponent client:load />
+</div>
+```
+
+## When to Use Astro
+
+Astro is perfect for:
+- Blogs and content sites
+- Marketing pages
+- Documentation sites
+- E-commerce product pages
+
+It might not be the best fit for highly interactive applications like dashboards or real-time collaboration tools, but for content-first sites, it's hard to beat.
+
+## My Experience Building This Blog
+
+This very blog you're reading is built with Astro! The development experience has been smooth, the performance is excellent, and I love being able to write content in MDX while having the flexibility to add interactive components when needed.
+
+If you're building a content site and care about performance, I highly recommend giving Astro a try. The ecosystem is growing rapidly, and the core team is shipping improvements at an impressive pace.
+
+## Getting Started
+
+If you want to try Astro yourself, it's incredibly easy to get started:
+
+```bash
+npm create astro@latest
+```
+
+The CLI will walk you through setup and you can have a site running in minutes. Check out [astro.build](https://astro.build) for comprehensive documentation and examples.
+
+Happy building! 🚀

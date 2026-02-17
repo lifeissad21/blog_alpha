@@ -1,17 +1,48 @@
 ---
+import MainLayout from '../layouts/MainLayout.astro';
+import { TagCloud } from '../components/TagCloud';
+import { getCollection } from 'astro:content';
 
+// Get all blog posts from the content collection
+const allPosts = await getCollection('blog');
+
+// Count tag occurrences
+const tagCounts = new Map<string, number>();
+allPosts.forEach((post) => {
+  if (post.data.tags) {
+    post.data.tags.forEach((tag: string) => {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+    });
+  }
+});
+
+// Convert to array and sort by count (descending)
+const tags = Array.from(tagCounts.entries())
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="MyBlog">
+	<div class="max-w-2xl mx-auto px-6 py-12 space-y-12 dark:bg-zinc-900">
+		<!-- Latest Posts -->
+		<section>
+			<h2 class="text-sm font-medium text-slate-600 dark:text-zinc-500 mb-6">Latest</h2>
+			<div class="space-y-6">
+				<hr class="border-slate-200 dark:border-zinc-700" />
+				<article>
+					<a href="/blog/first-post" class="block group">
+						<h3 class="text-lg font-semibold group-hover:underline mb-2 dark:text-zinc-200">I got interviewed by the AJC, and internalizing AI unemployment</h3>
+					</a>
+					<p class="text-sm text-slate-600 dark:text-zinc-500 mb-2">January 8, 2026 · 3 minute read</p>
+					<p class="text-slate-700 dark:text-zinc-400">A discussion about AI progress, career impact, and how to think about technological change.</p>
+				</article>
+			</div>
+		</section>
+
+		<!-- Tags -->
+		<section>
+			<h2 class="text-sm font-medium text-slate-600 dark:text-zinc-500 mb-6">Tags</h2>
+			<TagCloud tags={tags} client:load />
+		</section>
+	</div>
+</MainLayout>

@@ -1,0 +1,193 @@
+---
+import MainLayout from './MainLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    tags: string[];
+    date: string;
+    excerpt?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+// Format date
+const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<MainLayout title={frontmatter.title}>
+  <div class="max-w-2xl mx-auto px-6 w-full">
+    <div class="py-12">
+      <a href="/blog" class="text-sm hover:underline text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 mb-8 inline-block">← Back to blog</a>
+      
+      <article>
+        <header class="mb-12">
+          <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-zinc-500 mb-6">
+            <time>{formattedDate}</time>
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <>
+                <span>|</span>
+                <div class="flex gap-2">
+                  {frontmatter.tags.map((tag) => (
+                    <a href={`/tags/${tag}`} class="tag-link text-slate-600 dark:text-zinc-500 underline hover:no-underline">#{tag}</a>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+          
+          <h1 class="text-2xl sm:text-4xl font-black mb-4 leading-tight dark:text-zinc-200">
+            {frontmatter.title}
+          </h1>
+        </header>
+
+        <div class="prose prose-sm max-w-none text-slate-900 dark:text-zinc-300 space-y-4">
+          <slot />
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <style is:global>
+    /* Typography */
+    article h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    article h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    article p {
+      margin: 1.25rem 0;
+      line-height: 1.75;
+      color: rgb(51, 65, 85);
+    }
+
+    .dark article p {
+      color: rgb(212, 212, 216);
+    }
+
+    article strong {
+      font-weight: 600;
+    }
+
+    article em {
+      font-style: italic;
+    }
+
+    article a {
+      color: rgb(120, 53, 15);
+      text-decoration: underline;
+    }
+
+    .dark article a {
+      color: rgb(251, 146, 60);
+    }
+
+    article a:hover {
+      color: rgb(92, 40, 11);
+    }
+
+    .dark article a:hover {
+      color: rgb(253, 186, 116);
+    }
+
+    article a.tag-link {
+      color: rgb(51, 65, 85);
+    }
+
+    .dark article a.tag-link {
+      color: rgb(161, 161, 170);
+    }
+
+    article a.tag-link:hover {
+      color: rgb(51, 65, 85);
+    }
+
+    .dark article a.tag-link:hover {
+      color: rgb(161, 161, 170);
+    }
+
+    article ul, article ol {
+      margin: 1.25rem 0;
+      padding-left: 1.75rem;
+      list-style-position: inside;
+    }
+
+    article ul {
+      list-style-type: disc;
+    }
+
+    article ol {
+      list-style-type: decimal;
+    }
+
+    article li {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    article code {
+      background-color: rgb(241, 245, 249);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+      font-size: 0.9em;
+    }
+
+    .dark article code {
+      background-color: rgb(39, 39, 42);
+      color: rgb(212, 212, 216);
+    }
+
+    article pre {
+      background-color: rgb(15, 23, 42);
+      color: rgb(229, 231, 235);
+      overflow-x: auto;
+      padding: 1rem;
+      border-radius: 0.375rem;
+      margin: 1.5rem 0;
+    }
+
+    article pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    article blockquote {
+      border-left: 4px solid rgb(226, 232, 240);
+      padding-left: 1rem;
+      font-style: italic;
+      margin: 1.5rem 0;
+      color: rgb(100, 116, 139);
+    }
+
+    .dark article blockquote {
+      border-left-color: rgb(63, 63, 70);
+      color: rgb(161, 161, 170);
+    }
+
+    article hr {
+      border: none;
+      border-top: 1px solid rgb(226, 232, 240);
+      margin: 2rem 0;
+    }
+
+    .dark article hr {
+      border-top-color: rgb(63, 63, 70);
+    }
+  </style>
+</MainLayout>
