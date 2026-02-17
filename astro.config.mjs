@@ -9,9 +9,11 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://lifeissad21.github.io',
+  base: '/blog_alpha',
   vite: {
     plugins: [tailwindcss()]
   },
-
+  
   integrations: [mdx(), react()]
 });

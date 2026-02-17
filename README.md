@@ -1,43 +1,97 @@
-# Astro Starter Kit: Minimal
+# Personal Blog
 
-```sh
-bun create astro@latest -- --template minimal
-```
+A modern, minimalist blog built with Astro, featuring dark mode, tag filtering, and a clean reading experience.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## ✨ Features
+
+- **🎨 Clean Design** - Minimalist interface with Inter font throughout
+- **🌙 Dark Mode** - Smooth dark/light theme toggle with persistent state
+- **🏷️ Tag System** - Dynamic tag cloud and tag-based filtering
+- **📝 MDX Support** - Write blog posts with Markdown and React components
+- **⚡ Fast Performance** - Static site generation with Astro
+- **🎯 Type-Safe** - TypeScript and Astro content collections
+- **🧩 shadcn/ui** - UI components with Radix UI primitives
 
 ## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
 ├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/
+│   │   ├── ui/          # shadcn/ui components
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   ├── TagCloud.tsx
+│   │   └── ThemeSwitch.astro
+│   ├── content/
+│   │   └── blog/        # Blog posts (MDX)
+│   ├── layouts/
+│   │   ├── MainLayout.astro
+│   │   └── BlogLayout.astro
+│   ├── pages/
+│   │   ├── index.astro  # Homepage
+│   │   ├── now.astro    # About page
+│   │   ├── blog/
+│   │   │   ├── index.astro
+│   │   │   └── [slug].astro
+│   │   └── tags/
+│   │       └── [tag].astro  # Dynamic tag pages
+│   └── styles/
+│       └── global.css
+├── content.config.ts     # Content collections schema
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands are run from the root of the project:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+| Command | Action |
+| :--- | :--- |
+| `bun install` | Install dependencies |
+| `bun dev` | Start dev server at `localhost:4321` |
+| `bun build` | Build production site to `./dist/` |
+| `bun preview` | Preview production build locally |
+| `bun astro add` | Add Astro integrations |
 
-## 👀 Want to learn more?
+## 📝 Writing Blog Posts
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Create a new `.mdx` file in `src/content/blog/`:
+
+```mdx
+---
+title: "Your Post Title"
+tags: ["tag1", "tag2"]
+date: "2026-02-16"
+excerpt: "A brief description of your post."
+---
+
+Your content here...
+```
+
+## 🎨 Customization
+
+### Theme Colors
+The blog uses a warm color palette with zinc backgrounds in dark mode. Edit `src/styles/global.css` to customize colors.
+
+### Adding UI Components
+UI components are from shadcn/ui. Add new ones with:
+
+```bash
+bunx --bun shadcn@latest add [component-name]
+```
+
+## 🛠️ Built With
+
+- [Astro](https://astro.build) - Web framework
+- [React](https://react.dev) - UI components
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [shadcn/ui](https://ui.shadcn.com) - UI components
+- [MDX](https://mdxjs.com) - Markdown with JSX
+- [Inter](https://rsms.me/inter/) - Font family
+
+## 📄 License
+
+MIT

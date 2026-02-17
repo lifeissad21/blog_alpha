@@ -32,7 +32,7 @@ export function TagCloud({ tags }: TagCloudProps) {
       {tags.map((tag) => (
         <a
           key={tag.name}
-          href={`/tags/${tag.name}`}
+          href={`/blog_alpha/tags/${tag.name}`}
           className="hover:underline transition-all hover:opacity-100 dark:text-zinc-400 dark:hover:text-zinc-200"
           style={{
             fontSize: getFontSize(tag.count),
