@@ -1,7 +1,7 @@
 ---
 import '../../styles/global.css';
-import BlogLayout from '../../layouts/BlogLayout.astro';
-import { getCollection, getEntryBySlug } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,8 +18,182 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
-<BlogLayout frontmatter={post.data}>
-  <Content />
-</BlogLayout>
+<MainLayout title={post.data.title} section="blog">
+  <div class="max-w-2xl mx-auto px-6 w-full">
+    <div class="py-12">
+      <a href="/blog_alpha/blog" class="text-sm hover:underline text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 mb-8 inline-block">← Back to blog</a>
+      
+      <article>
+        <header class="mb-12">
+          <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-zinc-500 mb-6">
+            <time>{formattedDate}</time>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <>
+                <span>|</span>
+                <div class="flex gap-2">
+                  {post.data.tags.map((tag: string) => (
+                    <a href={`/blog_alpha/tags/${tag}`} class="tag-link text-slate-600 dark:text-zinc-500 underline hover:no-underline">#{tag}</a>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+          
+          <h1 class="text-2xl sm:text-4xl font-black mb-4 leading-tight dark:text-zinc-200">
+            {post.data.title}
+          </h1>
+        </header>
+
+        <div class="prose prose-sm max-w-none text-slate-900 dark:text-zinc-300 space-y-4">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <style is:global>
+    /* Typography */
+    article h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    article h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    article p {
+      margin: 1.25rem 0;
+      line-height: 1.75;
+      color: rgb(51, 65, 85);
+    }
+
+    .dark article p {
+      color: rgb(212, 212, 216);
+    }
+
+    article strong {
+      font-weight: 600;
+    }
+
+    article em {
+      font-style: italic;
+    }
+
+    article a {
+      color: rgb(120, 53, 15);
+      text-decoration: underline;
+    }
+
+    .dark article a {
+      color: rgb(251, 146, 60);
+    }
+
+    article a:hover {
+      color: rgb(92, 40, 11);
+    }
+
+    .dark article a:hover {
+      color: rgb(234, 88, 12);
+    }
+
+    article blockquote {
+      margin: 1.5rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid rgb(203, 213, 225);
+      color: rgb(71, 85, 105);
+      font-style: italic;
+    }
+
+    .dark article blockquote {
+      border-left-color: rgb(82, 82, 91);
+      color: rgb(161, 161, 170);
+    }
+
+    article ul,
+    article ol {
+      margin: 1.25rem 0;
+      padding-left: 1.5rem;
+    }
+
+    article li {
+      margin: 0.5rem 0;
+    }
+
+    article code {
+      background-color: rgb(248, 248, 250);
+      border: 1px solid rgb(226, 232, 240);
+      border-radius: 0.25rem;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.9em;
+      color: rgb(51, 65, 85);
+    }
+
+    .dark article code {
+      background-color: rgb(39, 39, 42);
+      border-color: rgb(82, 82, 91);
+      color: rgb(229, 229, 229);
+    }
+
+    article pre {
+      background-color: rgb(248, 248, 250);
+      border: 1px solid rgb(226, 232, 240);
+      border-radius: 0.375rem;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .dark article pre {
+      background-color: rgb(39, 39, 42);
+      border-color: rgb(82, 82, 91);
+    }
+
+    article pre code {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    article th,
+    article td {
+      border: 1px solid rgb(226, 232, 240);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    .dark article th,
+    .dark article td {
+      border-color: rgb(82, 82, 91);
+    }
+
+    article th {
+      background-color: rgb(248, 248, 250);
+      font-weight: 600;
+    }
+
+    .dark article th {
+      background-color: rgb(39, 39, 42);
+    }
+  </style>
+</MainLayout>
