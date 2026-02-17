@@ -1,0 +1,26 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Page Not Found">
+  <div class="max-w-2xl mx-auto px-6 w-full">
+    <div class="py-24 flex flex-col items-center justify-center text-center">
+      <div class="mb-8">
+        <h1 class="text-6xl font-black mb-4 dark:text-zinc-200">404</h1>
+        <p class="text-2xl font-semibold text-slate-900 dark:text-zinc-300 mb-2">Page Not Found</p>
+        <p class="text-slate-600 dark:text-zinc-500 max-w-md">
+          Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.
+        </p>
+      </div>
+      
+      <div class="flex gap-4">
+        <a href="/blog_alpha/" class="px-6 py-2 bg-slate-900 dark:bg-zinc-700 text-white dark:text-zinc-100 rounded hover:bg-slate-800 dark:hover:bg-zinc-600 transition-colors">
+          Back to Home
+        </a>
+        <a href="/blog_alpha/blog" class="px-6 py-2 border border-slate-300 dark:border-zinc-600 text-slate-900 dark:text-zinc-300 rounded hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors">
+          View Blog
+        </a>
+      </div>
+    </div>
+  </div>
+</MainLayout>
